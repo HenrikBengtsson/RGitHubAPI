@@ -72,6 +72,6 @@ issue <- list(
 
 pkgs <- bioc_pkgs
 for (pkg in pkgs) {
-  res <- try(createIssue(issue, owner=owner, repo=pkg))
+##  res <- try(createIssue(issue, owner=owner, repo=pkg))
   print(res)
 }
