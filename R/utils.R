@@ -3,14 +3,6 @@ v <- function(...) {
   structure(x, class=c("v", class(x)))
 }
 
-gitUrl <- function(url, owner, repo) {
-  url <- sprintf("https://api.github.com%s", url)
-  url <- gsub(":owner", owner, url, fixed=TRUE)
-  url <- gsub(":repo", repo, url, fixed=TRUE)
-  url
-} # gitUrl()
-
-
 #' @importFrom jsonlite toJSON
 json <- function(data) {
   names <- names(data)

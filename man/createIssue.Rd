@@ -4,10 +4,12 @@
 \alias{createIssue}
 \title{Creates a new issue}
 \usage{
-createIssue(title, body, assignee = NULL, milestone = NULL, labels = NULL,
-  agrep = 0.1, owner, repo)
+createIssue(repos, title, body, assignee = NULL, milestone = NULL,
+  labels = NULL, agrep = 0.1)
 }
 \arguments{
+\item{repos}{A GitHubRepository object.}
+
 \item{title}{Character string.}
 
 \item{body}{Character string.}
@@ -20,10 +22,6 @@ createIssue(title, body, assignee = NULL, milestone = NULL, labels = NULL,
 
 \item{agrep}{A numeric in [0,1] used to test for already existing
 issues in order to avoid duplicates.}
-
-\item{owner}{Character string.}
-
-\item{repo}{Character string.}
 }
 \value{
 Returns a named logical vector.

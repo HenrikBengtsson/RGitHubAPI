@@ -4,16 +4,14 @@
 \alias{hasIssues}
 \title{Checks existance of issues}
 \usage{
-hasIssues(titles, agrep = 0, owner, repo)
+hasIssues(repos, titles, agrep = 0)
 }
 \arguments{
+\item{repos}{A GitHubRepository object.}
+
 \item{titles}{Character vector.}
 
 \item{agrep}{A numeric in [0,1] controlling amount of discrepance allowed.}
-
-\item{owner}{Character string.}
-
-\item{repo}{Character string.}
 }
 \value{
 Returns a named logical vector.

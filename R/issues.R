@@ -2,16 +2,15 @@
 #'
 #' Retrievs all issues.
 #'
-#' @param owner Character string.
-#' @param repo Character string.
+#' @param repos A GitHubRepository object.
 #' @return Returns a character vector.
 #'
 #' @export
 #' @importFrom httr GET
 #' @importFrom httr content
-listIssues <- function(owner, repo) {
-  url <- gitUrl("/repos/:owner/:repo/issues", owner, repo)
-  res <- content(GET(url, auth), as="parsed")
+listIssues <- function(repos) {
+  url <- gitUrl(repos, "/repos/:owner/:repo/issues")
+  res <- content(GET(url, repos$auth), as="parsed")
   if (length(res) > 0L) names(res) <- sapply(res, FUN=`[[`, "title")
   res
 }
@@ -21,15 +20,14 @@ listIssues <- function(owner, repo) {
 #' Checks whether a set of issues exists or not by
 #' scanning issue titles.
 #'
+#' @param repos A GitHubRepository object.
 #' @param titles Character vector.
 #' @param agrep A numeric in [0,1] controlling amount of discrepance allowed.
-#' @param owner Character string.
-#' @param repo Character string.
 #' @return Returns a named logical vector.
 #'
 #' @export
-hasIssues <- function(titles, agrep=0, owner, repo) {
-  res <- listIssues(owner, repo)
+hasIssues <- function(repos, titles, agrep=0) {
+  res <- listIssues(repos)
   if (length(res) == 0) {
     res <- rep(FALSE, length=length(titles))
   } else if (agrep == 0) {
@@ -48,6 +46,7 @@ hasIssues <- function(titles, agrep=0, owner, repo) {
 #'
 #' Creates a new issue
 #'
+#' @param repos A GitHubRepository object.
 #' @param title Character string.
 #' @param body Character string.
 #' @param assignee (optional) Character string.
@@ -55,24 +54,22 @@ hasIssues <- function(titles, agrep=0, owner, repo) {
 #' @param labels (optional) Character vector.
 #' @param agrep A numeric in [0,1] used to test for already existing
 #' issues in order to avoid duplicates.
-#' @param owner Character string.
-#' @param repo Character string.
 #' @return Returns a named logical vector.
 #'
 #' @export
 #' @importFrom httr POST
 #' @importFrom R.oo attachLocally
 #' @importFrom R.methodsS3 throw
-createIssue <- function(title, body, assignee=NULL, milestone=NULL, labels=NULL, agrep=0.1, owner, repo) {
+createIssue <- function(repos, title, body, assignee=NULL, milestone=NULL, labels=NULL, agrep=0.1) {
   if (is.list(title)) attachLocally(title)
-  if (agrep >= 0 && hasIssues(title, agrep=agrep, owner=owner, repo=repo)) {
+  if (agrep >= 0 && hasIssues(title, agrep=agrep, repos=repos)) {
     throw("An issue with a very similar title already exists: ", title)
   }
 
-  url <- gitUrl("/repos/:owner/:repo/issues", owner, repo)
+  url <- gitUrl(repos, "/repos/:owner/:repo/issues")
   data <- list(title=title, body=body, assignee=assignee, milestone=milestone, labels=labels)
   data <- data[sapply(data, FUN=length) > 0L]
-  cat(json(data))
-  res <- POST(url, auth, body=json(data), encode="json")
+#  cat(json(data))
+  res <- POST(url, repos$auth, body=json(data), encode="json")
   res
 }

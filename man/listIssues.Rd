@@ -4,12 +4,10 @@
 \alias{listIssues}
 \title{List issues}
 \usage{
-listIssues(owner, repo)
+listIssues(repos)
 }
 \arguments{
-\item{owner}{Character string.}
-
-\item{repo}{Character string.}
+\item{repos}{A GitHubRepository object.}
 }
 \value{
 Returns a character vector.

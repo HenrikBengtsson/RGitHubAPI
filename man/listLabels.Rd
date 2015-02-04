@@ -4,12 +4,10 @@
 \alias{listLabels}
 \title{List labels}
 \usage{
-listLabels(owner, repo)
+listLabels(repos)
 }
 \arguments{
-\item{owner}{Character string.}
-
-\item{repo}{Character string.}
+\item{repos}{A GitHubRepository object.}
 }
 \value{
 Returns a character vector.

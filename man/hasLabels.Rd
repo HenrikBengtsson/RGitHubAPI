@@ -4,14 +4,12 @@
 \alias{hasLabels}
 \title{Checks existance of labels}
 \usage{
-hasLabels(labels, owner, repo)
+hasLabels(repos, labels)
 }
 \arguments{
+\item{repos}{A GitHubRepository object.}
+
 \item{labels}{Character vector.}
-
-\item{owner}{Character string.}
-
-\item{repo}{Character string.}
 }
 \value{
 Returns a named logical vector.

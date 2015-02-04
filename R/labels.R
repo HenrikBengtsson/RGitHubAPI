@@ -2,16 +2,15 @@
 #'
 #' Retrievs all labels.
 #'
-#' @param owner Character string.
-#' @param repo Character string.
+#' @param repos A GitHubRepository object.
 #' @return Returns a character vector.
 #'
 #' @export
 #' @importFrom httr GET
 #' @importFrom httr content
-listLabels <- function(owner, repo) {
-  url <- gitUrl("/repos/:owner/:repo/labels", owner, repo)
-  res <- content(GET(url, auth), as="parsed")
+listLabels <- function(repos) {
+  url <- gitUrl(repos, "/repos/:owner/:repo/labels")
+  res <- content(GET(url, repos$auth), as="parsed")
   if (length(res) > 0L) names(res) <- sapply(res, FUN=`[[`, "name")
   res
 }
@@ -20,14 +19,13 @@ listLabels <- function(owner, repo) {
 #'
 #' Checks whether a set of labels exists or not.
 #'
+#' @param repos A GitHubRepository object.
 #' @param labels Character vector.
-#' @param owner Character string.
-#' @param repo Character string.
 #' @return Returns a named logical vector.
 #'
 #' @export
-hasLabels <- function(labels, owner, repo) {
-  res <- listLabels(owner, repo)
+hasLabels <- function(repos, labels) {
+  res <- listLabels(repos)
   res <- is.element(labels, names(res))
   names(res) <- labels
   res
@@ -39,19 +37,18 @@ hasLabels <- function(labels, owner, repo) {
 #'
 #' @param label Character string.
 #' @param color Character string.
-#' @param owner Character string.
-#' @param repo Character string.
+#' @param repos A GitHubRepository object.
 #' @return Returns a named logical vector.
 #'
 #' @export
 #' @importFrom httr POST
-createLabel <- function(label, color, owner, repo) {
+createLabel <- function(repos, label, color) {
   color <- tolower(color)
   color <- gsub("^#([0-9a-f]{6})$", "\\1", color)
   stopifnot(grepl("^[0-9a-f]{6}$", color))
 
-  url <- gitUrl("/repos/:owner/:repo/labels", owner, repo)
+  url <- gitUrl(repos, "/repos/:owner/:repo/labels")
   data <- list(name=label, color=color)
-  res <- POST(url, auth, body=json(data), encode="json")
+  res <- POST(url, repos$auth, body=json(data), encode="json")
   res
 }

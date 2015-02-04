@@ -4,16 +4,14 @@
 \alias{createLabel}
 \title{Creates a new label}
 \usage{
-createLabel(label, color, owner, repo)
+createLabel(repos, label, color)
 }
 \arguments{
+\item{repos}{A GitHubRepository object.}
+
 \item{label}{Character string.}
 
 \item{color}{Character string.}
-
-\item{owner}{Character string.}
-
-\item{repo}{Character string.}
 }
 \value{
 Returns a named logical vector.
