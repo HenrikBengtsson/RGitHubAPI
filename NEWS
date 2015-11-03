@@ -2,6 +2,10 @@
 Package: RGitHubAPI
 ===================
 
+Version: 0.1.1 [2015-11-03]
+o Export also v().
+
+
 Version: 0.1.0 [2015-02-03]
 o Turned into a package.
 
