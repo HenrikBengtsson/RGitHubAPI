@@ -1,10 +1,15 @@
 Package: RGitHubAPI
-Version: 0.1.0
-Depends: R (>= 3.1.2)
-Imports: R.methodsS3, R.oo, httr, jsonlite
+Version: 0.1.0-9000
+Depends:
+  R (>= 3.1.2)
+Imports:
+  R.methodsS3,
+  R.oo,
+  httr,
+  jsonlite
 Authors@R: c(person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                           email = "henrikb@braju.com"))
-Date: 2015-02-03
+Date: 2015-11-03
 Title: R Interface to GitHub API
 Description: Simple R interface to the GitHub API
 License: LGPL (>= 2.1)
