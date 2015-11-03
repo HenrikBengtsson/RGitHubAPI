@@ -1,3 +1,4 @@
+#' @export
 v <- function(...) {
   x <- c(...)
   structure(x, class=c("v", class(x)))
