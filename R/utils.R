@@ -1,4 +1,9 @@
+#' Attach a 'v' class attribute to object
+#'
+#' @param \ldots Objects to concatenate with c().
+#'
 #' @export
+#' @keywords internal
 v <- function(...) {
   x <- c(...)
   structure(x, class=c("v", class(x)))
