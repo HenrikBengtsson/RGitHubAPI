@@ -29,7 +29,7 @@ listIssues <- function(repos) {
 hasIssues <- function(repos, titles, agrep=0) {
   res <- listIssues(repos)
   if (length(res) == 0) {
-    res <- rep(FALSE, length=length(titles))
+    res <- rep(FALSE, times=length(titles))
   } else if (agrep == 0) {
     res <- is.element(titles, names(res))
   } else {
